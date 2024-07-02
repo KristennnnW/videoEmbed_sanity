@@ -6,7 +6,7 @@ const components: PortableTextComponents = {
   types: {
     youtube: ({ value }) => {
       const { url } = value as { url: string };
-      return <YouTubeEmbed url={url} />;
+      return <YouTubeEmbed url={url} width="100%" height="auto" style={{ margin: '0 auto' }} />;
     },
   },
 };
@@ -26,7 +26,16 @@ const Body: React.FC<BodyProps> = ({ blocks }) => {
     return null; 
   }
 
-  return <PortableText value={blocks} components={components} />;
+  // return <PortableText value={blocks} components={components} />;
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+      {blocks.map((block: any, index: number) => (
+        <div key={index} style={{ flex: '1 1 45%', boxSizing: 'border-box' }}>
+          <PortableText value={[block]} components={components} />
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default Body;
